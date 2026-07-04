@@ -1,4 +1,4 @@
-// Particles Animation - Optimized
+// Particles Animation
 const canvas = document.getElementById('particles');
 const ctx = canvas.getContext('2d');
 
@@ -11,10 +11,10 @@ class Particle {
   constructor() {
     this.x = Math.random() * canvas.width;
     this.y = Math.random() * canvas.height;
-    this.size = Math.random() * 1 + 0.5;
-    this.speedX = (Math.random() - 0.5) * 0.3;
-    this.speedY = (Math.random() - 0.5) * 0.3;
-    this.opacity = Math.random() * 0.3 + 0.1;
+    this.size = Math.random() * 1.5;
+    this.speedX = (Math.random() - 0.5) * 0.5;
+    this.speedY = (Math.random() - 0.5) * 0.5;
+    this.opacity = Math.random() * 0.5 + 0.2;
     this.color = Math.random() > 0.5 ? 'rgba(255, 215, 120, ' : 'rgba(184, 138, 44, ';
   }
 
@@ -36,26 +36,19 @@ class Particle {
   }
 }
 
-// Create particles - Reduced amount
+// Create particles
 const particles = [];
-const particleCount = Math.min(30, Math.floor(window.innerWidth / 50));
-for (let i = 0; i < particleCount; i++) {
+for (let i = 0; i < 50; i++) {
   particles.push(new Particle());
 }
 
-// Animation loop with frame skipping
-let frameCount = 0;
+// Animation loop
 function animate() {
-  frameCount++;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   
-  // Only update particles every 2 frames
-  if (frameCount % 2 === 0) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-    for (let particle of particles) {
-      particle.update();
-      particle.draw();
-    }
+  for (let particle of particles) {
+    particle.update();
+    particle.draw();
   }
   
   requestAnimationFrame(animate);
